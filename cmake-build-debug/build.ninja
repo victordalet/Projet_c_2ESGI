@@ -49,8 +49,50 @@ cmake_ninja_workdir = C$:/Users/dalet/other_project/Projet_c_2ESGI/cmake-build-d
 
 build cmake_object_order_depends_target_Projet_c_2ESGI: phony || CMakeFiles/Projet_c_2ESGI.dir
 
-build CMakeFiles/Projet_c_2ESGI.dir/src/main.c.obj: C_COMPILER__Projet_c_2ESGI_unscanned_Debug C$:/Users/dalet/other_project/Projet_c_2ESGI/src/main.c || cmake_object_order_depends_target_Projet_c_2ESGI
-  DEP_FILE = CMakeFiles\Projet_c_2ESGI.dir\src\main.c.obj.d
+build CMakeFiles/Projet_c_2ESGI.dir/src/game.c.obj: C_COMPILER__Projet_c_2ESGI_unscanned_Debug C$:/Users/dalet/other_project/Projet_c_2ESGI/src/game.c || cmake_object_order_depends_target_Projet_c_2ESGI
+  DEP_FILE = CMakeFiles\Projet_c_2ESGI.dir\src\game.c.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/dalet/other_project/Projet_c_2ESGI/include
+  OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
+  OBJECT_FILE_DIR = CMakeFiles\Projet_c_2ESGI.dir\src
+
+build CMakeFiles/Projet_c_2ESGI.dir/src/display.c.obj: C_COMPILER__Projet_c_2ESGI_unscanned_Debug C$:/Users/dalet/other_project/Projet_c_2ESGI/src/display.c || cmake_object_order_depends_target_Projet_c_2ESGI
+  DEP_FILE = CMakeFiles\Projet_c_2ESGI.dir\src\display.c.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/dalet/other_project/Projet_c_2ESGI/include
+  OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
+  OBJECT_FILE_DIR = CMakeFiles\Projet_c_2ESGI.dir\src
+
+build CMakeFiles/Projet_c_2ESGI.dir/src/event.c.obj: C_COMPILER__Projet_c_2ESGI_unscanned_Debug C$:/Users/dalet/other_project/Projet_c_2ESGI/src/event.c || cmake_object_order_depends_target_Projet_c_2ESGI
+  DEP_FILE = CMakeFiles\Projet_c_2ESGI.dir\src\event.c.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/dalet/other_project/Projet_c_2ESGI/include
+  OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
+  OBJECT_FILE_DIR = CMakeFiles\Projet_c_2ESGI.dir\src
+
+build CMakeFiles/Projet_c_2ESGI.dir/src/map.c.obj: C_COMPILER__Projet_c_2ESGI_unscanned_Debug C$:/Users/dalet/other_project/Projet_c_2ESGI/src/map.c || cmake_object_order_depends_target_Projet_c_2ESGI
+  DEP_FILE = CMakeFiles\Projet_c_2ESGI.dir\src\map.c.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/dalet/other_project/Projet_c_2ESGI/include
+  OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
+  OBJECT_FILE_DIR = CMakeFiles\Projet_c_2ESGI.dir\src
+
+build CMakeFiles/Projet_c_2ESGI.dir/src/player.c.obj: C_COMPILER__Projet_c_2ESGI_unscanned_Debug C$:/Users/dalet/other_project/Projet_c_2ESGI/src/player.c || cmake_object_order_depends_target_Projet_c_2ESGI
+  DEP_FILE = CMakeFiles\Projet_c_2ESGI.dir\src\player.c.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/dalet/other_project/Projet_c_2ESGI/include
+  OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
+  OBJECT_FILE_DIR = CMakeFiles\Projet_c_2ESGI.dir\src
+
+build CMakeFiles/Projet_c_2ESGI.dir/src/menu.c.obj: C_COMPILER__Projet_c_2ESGI_unscanned_Debug C$:/Users/dalet/other_project/Projet_c_2ESGI/src/menu.c || cmake_object_order_depends_target_Projet_c_2ESGI
+  DEP_FILE = CMakeFiles\Projet_c_2ESGI.dir\src\menu.c.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/dalet/other_project/Projet_c_2ESGI/include
+  OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
+  OBJECT_FILE_DIR = CMakeFiles\Projet_c_2ESGI.dir\src
+
+build CMakeFiles/Projet_c_2ESGI.dir/src/enemy.c.obj: C_COMPILER__Projet_c_2ESGI_unscanned_Debug C$:/Users/dalet/other_project/Projet_c_2ESGI/src/enemy.c || cmake_object_order_depends_target_Projet_c_2ESGI
+  DEP_FILE = CMakeFiles\Projet_c_2ESGI.dir\src\enemy.c.obj.d
   FLAGS = -Wall -Werror -g -std=gnu11 -fdiagnostics-color=always
   INCLUDES = -IC:/Users/dalet/other_project/Projet_c_2ESGI/include
   OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
@@ -64,7 +106,7 @@ build CMakeFiles/Projet_c_2ESGI.dir/src/main.c.obj: C_COMPILER__Projet_c_2ESGI_u
 #############################################
 # Link the executable Projet_c_2ESGI.exe
 
-build Projet_c_2ESGI.exe: C_EXECUTABLE_LINKER__Projet_c_2ESGI_Debug CMakeFiles/Projet_c_2ESGI.dir/src/main.c.obj
+build Projet_c_2ESGI.exe: C_EXECUTABLE_LINKER__Projet_c_2ESGI_Debug CMakeFiles/Projet_c_2ESGI.dir/src/game.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/display.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/event.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/map.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/player.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/menu.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/enemy.c.obj
   FLAGS = -Wall -Werror -g
   LINK_LIBRARIES = -lSDL2main  -lSDL2  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/dalet/other_project/Projet_c_2ESGI/lib
