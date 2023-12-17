@@ -13,7 +13,10 @@
 	{
 		"commands" : 
 		[
-			"add_executable"
+			"add_executable",
+			"link_directories",
+			"target_link_libraries",
+			"include_directories"
 		],
 		"files" : 
 		[
@@ -27,7 +30,25 @@
 			{
 				"command" : 0,
 				"file" : 0,
+				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
 				"line" : 6,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 13,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 5,
 				"parent" : 0
 			}
 		]
@@ -38,7 +59,14 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=gnu11 -fdiagnostics-color=always"
+					"fragment" : " -Wall -Werror -g -std=gnu11 -fdiagnostics-color=always"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 4,
+					"path" : "C:/Users/dalet/other_project/Projet_c_2ESGI/include"
 				}
 			],
 			"language" : "C",
@@ -62,12 +90,27 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
+				"fragment" : "-Wall -Werror -g",
 				"role" : "flags"
 			},
 			{
 				"fragment" : "",
 				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-LC:\\Users\\dalet\\other_project\\Projet_c_2ESGI\\lib",
+				"role" : "libraryPath"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lSDL2main",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "-lSDL2",
+				"role" : "libraries"
 			},
 			{
 				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
