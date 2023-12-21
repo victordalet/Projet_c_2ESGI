@@ -4,9 +4,7 @@
 #include "player.h"
 #include "event.h"
 #include "display.h"
-#include "enemy.h"
 #include "game.h"
-#include "menu.h"
 
 #define SDL_MAIN_HANDLED
 
@@ -15,14 +13,6 @@ int main(int argc, char *argv[]) {
 
     /* DEFINE LEVEL */
     bool in_level = false;
-    int level1[DIMENSION_LEVEL1_X][DIMENSION_LEVEL1_Y] = {0};
-
-    /* DEFINE CHARACTER */
-    struct Player main_player = {0, 0, 20, 0, 2, GRAVITY, 40, 60, 50};
-    int number_enemy = 0;
-    int position_enemies[NUMBER_ENEMY][2] = {0};
-    Enemy *enemies = malloc(sizeof(Enemy) * number_enemy);
-
 
     /* DEFINE KEY EVENT */
     bool KEYS[323]; //323 is for mousse click
@@ -58,17 +48,12 @@ int main(int argc, char *argv[]) {
 
     /* LOAD TEXTURE */
     SDL_Texture *cursor_texture = load_picture("../assets/resources/cursor.bmp", renderer);
-    SDL_Texture *player_picture = load_picture("../assets/resources/player.bmp", renderer);
-    SDL_Texture *platform_1_texture = load_picture("../assets/resources/platform.bmp", renderer);
-    SDL_Texture *enemy1_texture = load_picture("../assets/resources/enemy.bmp", renderer);
-    SDL_Texture *hp_texture = load_picture("../assets/resources/heart.bmp", renderer);
-    SDL_Texture *end_texture = load_picture("../assets/resources/end.bmp", renderer);
     SDL_Texture *level1_icon_texture = load_picture("../assets/resources/one.bmp", renderer);
     SDL_Texture *level2_icon_texture = load_picture("../assets/resources/two.bmp", renderer);
     SDL_Texture *level3_icon_texture = load_picture("../assets/resources/three.bmp", renderer);
     SDL_Texture *level4_icon_texture = load_picture("../assets/resources/four.bmp", renderer);
     SDL_Texture *level5_icon_texture = load_picture("../assets/resources/five.bmp", renderer);
-    SDL_Texture *level_icon_texture[NUMBER_LEVEL] = {level1_icon_texture, level2_icon_texture, level3_icon_texture,
+    SDL_Texture *level_icon_texture[NUMBER_ICON_MENU] = {level1_icon_texture, level2_icon_texture, level3_icon_texture,
                                                      level4_icon_texture, level5_icon_texture};
 
 
@@ -88,29 +73,11 @@ int main(int argc, char *argv[]) {
         SDL_RenderClear(renderer);
         display_menu(renderer, in_level, level_icon_texture);
         display_cursor(renderer, cursor_texture, in_level);
-        launch_level(&in_level, level1, KEYS, &number_enemy, position_enemies, enemies);
         if (in_level) {
-            keyboard_manager(KEYS, &main_player, level1);
-            display_hp(renderer, hp_texture, main_player);
-            gravity(&main_player, level1);
-            respawn(&main_player);
-            draw_map(renderer, level1, main_player, platform_1_texture, hp_texture, end_texture);
-            get_item(level1, &main_player, &in_level);
-            display_picture(renderer, player_picture, main_player.x, main_player.y - main_player.height,
-                            main_player.width,
-                            main_player.height);
-            for (int i = 0; i < number_enemy; i++) {
-                if (enemies[i].hp > 0) {
-                    display_picture(renderer, enemy1_texture, enemies[i].x - main_player.camera_x,
-                                    enemies[i].y - enemies[i].w, enemies[i].w,
-                                    enemies[i].h);
-                }
-                resurrect_enemy(main_player, &enemies[i]);
-            }
+            keyboard_manager(KEYS);
         }
         SDL_RenderPresent(renderer);
     }
 
-    free(enemies);
     return 0;
 }

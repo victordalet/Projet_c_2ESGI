@@ -1,6 +1,5 @@
-#include "player.h"
+#include <stdio.h>
 #include "stdbool.h"
-#include "game.h"
 #include "../include/sdl.h"
 
 void event_manager(SDL_Event event, bool *run, bool KEYS[323]) {
@@ -24,13 +23,9 @@ void event_manager(SDL_Event event, bool *run, bool KEYS[323]) {
     }
 }
 
-void keyboard_manager(bool KEYS[323], Player *main_player, int level[DIMENSION_LEVEL1_X][DIMENSION_LEVEL1_Y]) {
+void keyboard_manager(bool KEYS[323]) {
     if (KEYS[(int) ' '])
-        jump(main_player, level);
-    if (KEYS[(int) 'd'])
-        move(1, main_player, level);
-    if (KEYS[(int) 'q'])
-        move(-1, main_player, level);
+        printf("SPACE\n");
     if (!KEYS[323]) {
         KEYS[323] = true;
     }
