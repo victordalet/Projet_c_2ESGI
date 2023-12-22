@@ -2,15 +2,15 @@ version: '3.7'
 
 services:
   db-mysql:
-    image: mysql:8.0
+    image: mysql:5.7
     container_name: db-mysql
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: project_c_password
+      MYSQL_USER: c_user
+      MYSQL_PASSWORD: project_c_password
+      MYSQL_DATABASE: project_c
     ports:
-      - 3007:3306
+      - "3007:3306"
     volumes:
-      - ./mysql:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql

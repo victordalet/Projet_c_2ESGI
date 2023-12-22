@@ -16,6 +16,8 @@ add_executable(Projet_c_2ESGI
         src/player.c
         src/menu.h
         src/menu.c
+        src/connection.c
+        src/connection.h
 )
 
-target_link_libraries(Projet_c_2ESGI SDL2main SDL2)
+target_link_libraries(Projet_c_2ESGI SDL2main SDL2 libmysql)
