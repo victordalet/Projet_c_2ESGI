@@ -734,6 +734,18 @@
 			"value" : "Projet_c_2ESGI"
 		},
 		{
+			"name" : "CMAKE_PROJECT_TOP_LEVEL_INCLUDES",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "No help, variable specified on the command line."
+				}
+			],
+			"type" : "UNINITIALIZED",
+			"value" : "conan_provider.cmake"
+		},
+		{
 			"name" : "CMAKE_RANLIB",
 			"properties" : 
 			[
@@ -1124,6 +1136,30 @@
 			],
 			"type" : "BOOL",
 			"value" : "FALSE"
+		},
+		{
+			"name" : "CONAN_BUILD_PROFILE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Conan build profile"
+				}
+			],
+			"type" : "STRING",
+			"value" : "default"
+		},
+		{
+			"name" : "CONAN_HOST_PROFILE",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Conan host profile"
+				}
+			],
+			"type" : "STRING",
+			"value" : "default;auto-cmake"
 		},
 		{
 			"name" : "Projet_c_2ESGI_BINARY_DIR",

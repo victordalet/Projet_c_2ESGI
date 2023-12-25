@@ -12,7 +12,7 @@ void display_picture(SDL_Renderer *renderer, SDL_Texture *texture, int x, int y,
 
 void display_cursor(SDL_Renderer *renderer, SDL_Texture *texture, bool in_level);
 
-void display_menu(SDL_Renderer *renderer, bool * menu, SDL_Texture *level_icon_texture[NUMBER_ICON_MENU]);
+void display_menu(SDL_Renderer *renderer, bool * menu, SDL_Texture *start_icon_texture);
 
 void display_text(SDL_Renderer *renderer, char *text);
 

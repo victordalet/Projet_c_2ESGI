@@ -1,10 +1,12 @@
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "../include/SDL.h"
 #include "event.h"
 #include "display.h"
 #include "game.h"
 #include "connection.h"
+#include "menu.h"
 #include "../include/mysql.h"
 
 #define SDL_MAIN_HANDLED
@@ -12,19 +14,14 @@
 
 int main(int argc, char *argv[]) {
 
-    /* INIT MYSQL */
-
-    MYSQL mysql;
-    init_mysql(mysql);
-
     /* DEFINE GAME VARIABLE */
 
     bool in_level = false;
     int user_id;
-    int nb_block = 0;
+    /*int nb_block = 0;
     int nb_supplementary_line = 0;
     int time_to_launch_server = 0;
-    int nb_block_removed = 0;
+    int nb_block_removed = 0;*/
     bool run = true;
 
     /* DEFINE KEY EVENT */
@@ -64,19 +61,14 @@ int main(int argc, char *argv[]) {
 
     /* LOAD TEXTURE */
     SDL_Texture *cursor_texture = load_picture("../assets/resources/cursor.bmp", renderer);
-    SDL_Texture *level1_icon_texture = load_picture("../assets/resources/one.bmp", renderer);
-    SDL_Texture *level2_icon_texture = load_picture("../assets/resources/two.bmp", renderer);
-    SDL_Texture *level3_icon_texture = load_picture("../assets/resources/three.bmp", renderer);
-    SDL_Texture *level4_icon_texture = load_picture("../assets/resources/four.bmp", renderer);
-    SDL_Texture *level5_icon_texture = load_picture("../assets/resources/five.bmp", renderer);
-    SDL_Texture *level_icon_texture[NUMBER_ICON_MENU] = {level1_icon_texture, level2_icon_texture, level3_icon_texture,
-                                                         level4_icon_texture, level5_icon_texture};
+    SDL_Texture *start_icon_texture = load_picture("../assets/resources/start.bmp", renderer);
 
 
     /* GAME */
 
     SDL_ShowCursor(SDL_DISABLE);
-    giveUserId(mysql, &user_id);
+    giveUserId(&user_id);
+    printf("user_id : %d\n", user_id);
 
     while (run) {
         SDL_Event event;
@@ -89,13 +81,14 @@ int main(int argc, char *argv[]) {
         SDL_RenderClear(renderer);
 
         if (!in_level)
-            display_menu(renderer, &in_level, level_icon_texture);
+            display_menu(renderer, &in_level, start_icon_texture);
+
+        launch_level(&in_level, KEYS, user_id);
 
         display_cursor(renderer, cursor_texture, in_level);
         keyboard_manager(KEYS);
         SDL_RenderPresent(renderer);
     }
 
-    mysql_close(&mysql);
     return 0;
 }

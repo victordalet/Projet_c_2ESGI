@@ -18,6 +18,10 @@ add_executable(Projet_c_2ESGI
         src/menu.c
         src/connection.c
         src/connection.h
+        src/game-management.c
+        src/game-management.h
+        src/tetris.c
+        src/tetris.h
 )
 
 target_link_libraries(Projet_c_2ESGI SDL2main SDL2 libmysql)

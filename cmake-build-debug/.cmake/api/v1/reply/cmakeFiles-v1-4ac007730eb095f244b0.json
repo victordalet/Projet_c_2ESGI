@@ -9,6 +9,9 @@
 			"path" : "cmake-build-debug/CMakeFiles/3.27.0/CMakeSystem.cmake"
 		},
 		{
+			"path" : "conan_provider.cmake"
+		},
+		{
 			"isCMake" : true,
 			"isExternal" : true,
 			"path" : "C:/Users/dalet/AppData/Local/Programs/CLion/bin/cmake/win/x64/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake"
