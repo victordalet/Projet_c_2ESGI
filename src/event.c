@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include "stdbool.h"
 #include "../include/sdl.h"
+#include "tetris_player_action.h"
 
 void event_manager(SDL_Event event, bool *run, bool KEYS[323]) {
     switch (event.type) {
@@ -24,8 +24,14 @@ void event_manager(SDL_Event event, bool *run, bool KEYS[323]) {
 }
 
 void keyboard_manager(bool KEYS[323]) {
-    if (KEYS[(int) ' '])
-        printf("SPACE\n");
+    if (KEYS[(int) 'a'] || KEYS[(int) ' '])
+        set_rotation(1);
+    if (KEYS[(int) 'e'])
+        set_rotation(-1);
+    if (KEYS[(int) 'd'])
+        move_right();
+    if (KEYS[(int) 'q'])
+        move_left();
     if (!KEYS[323]) {
         KEYS[323] = true;
     }

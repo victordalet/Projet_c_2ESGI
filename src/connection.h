@@ -9,6 +9,8 @@ int get_status_server();
 
 void add_block_query();
 
+void get_block_query(int *nb_block);
+
 void end_game_query();
 
 void enter_game_query(int user_id);

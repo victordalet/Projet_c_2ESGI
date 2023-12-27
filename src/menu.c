@@ -3,6 +3,7 @@
 #include "game.h"
 #include "game-management.h"
 #include "../include/mysql.h"
+#include "tetris.h"
 
 
 void
@@ -19,6 +20,7 @@ launch_level(bool *in_level, bool KEYS[323], int user_id) {
             if ((x > min_width && x < max_width) && (y > min_height && y < max_height)) {
                 loading_game(user_id);
                 *in_level = true;
+                init_board();
             }
         }
     }

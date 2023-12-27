@@ -1,90 +1,174 @@
 #include <stdlib.h>
-#include <stdio.h>
-
-struct piece {
-    int x;
-    int y;
-    int rotation;
-    int type;
-};
-
-struct piece piece;
-
-int board[20][10];
-int next_piece[4][4];
-
-void management_next_piece() {
-    int i, j;
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 3; j++)
-            next_piece[i][j] = next_piece[i][j + 1];
-    }
-    for (i = 0; i < 4; i++)
-        next_piece[i][3] = rand() % 7;
-}
-
-void init_next_piece() {
-    int i, j;
-    for (i = 0; i < 4; i++)
-        for (j = 0; j < 4; j++)
-            next_piece[i][j] = rand() % 7;
-}
+#include "game.h"
+#include "../include/SDL.h"
+#include "display.h"
+#include "connection.h"
+#include "tetris.h"
+#include "tetris_piece.h"
 
 void init_board() {
     int i, j;
-    for (i = 0; i < 20; i++)
-        for (j = 0; j < 10; j++)
+    for (i = 0; i < HEIGHT_BLOCK; i++)
+        for (j = 0; j < WIDTH_BLOCK; j++)
             board[i][j] = 0;
 }
 
-void init_piece() {
-    piece.x = 3;
-    piece.y = 0;
-    piece.rotation = 0;
-    piece.type = next_piece[0][0];
-    management_next_piece();
-}
 
-void init_game() {
-    init_board();
-    init_next_piece();
+void change_piece() {
     init_piece();
+    next_piece = rand() % 7;
 }
 
-void move_piece(int x, int y) {
-    piece.x += x;
-    piece.y += y;
+void add_piece_in_board() {
+    if (piece.x0) board[piece.y][piece.x] = piece.type;
+    if (piece.x1) board[piece.y][piece.x + 1] = piece.type;
+    if (piece.x2) board[piece.y][piece.x + 2] = piece.type;
+    if (piece.x3) board[piece.y][piece.x + 3] = piece.type;
+    if (piece.y0) board[piece.y + 1][piece.x] = piece.type;
+    if (piece.y1) board[piece.y + 1][piece.x + 1] = piece.type;
+    if (piece.y2) board[piece.y + 1][piece.x + 2] = piece.type;
+    if (piece.y3) board[piece.y + 1][piece.x + 3] = piece.type;
+    if (piece.z0) board[piece.y + 2][piece.x] = piece.type;
+    if (piece.z1) board[piece.y + 2][piece.x + 1] = piece.type;
+    if (piece.z2) board[piece.y + 2][piece.x + 2] = piece.type;
+    if (piece.z3) board[piece.y + 2][piece.x + 3] = piece.type;
+    if (piece.r0) board[piece.y + 3][piece.x] = piece.type;
+    if (piece.r1) board[piece.y + 3][piece.x + 1] = piece.type;
+    if (piece.r2) board[piece.y + 3][piece.x + 2] = piece.type;
+    if (piece.r3) board[piece.y + 3][piece.x + 3] = piece.type;
 }
 
-void rotate_piece() {
-    piece.rotation = (piece.rotation + 1) % 4;
+
+void remove_actual_piece_in_board() {
+    if (piece.x0) board[piece.y][piece.x] = 0;
+    if (piece.x1) board[piece.y][piece.x + 1] = 0;
+    if (piece.x2) board[piece.y][piece.x + 2] = 0;
+    if (piece.x3) board[piece.y][piece.x + 3] = 0;
+    if (piece.y0) board[piece.y + 1][piece.x] = 0;
+    if (piece.y1) board[piece.y + 1][piece.x + 1] = 0;
+    if (piece.y2) board[piece.y + 1][piece.x + 2] = 0;
+    if (piece.y3) board[piece.y + 1][piece.x + 3] = 0;
+    if (piece.z0) board[piece.y + 2][piece.x] = 0;
+    if (piece.z1) board[piece.y + 2][piece.x + 1] = 0;
+    if (piece.z2) board[piece.y + 2][piece.x + 2] = 0;
+    if (piece.z3) board[piece.y + 2][piece.x + 3] = 0;
+    if (piece.r0) board[piece.y + 3][piece.x] = 0;
+    if (piece.r1) board[piece.y + 3][piece.x + 1] = 0;
+    if (piece.r2) board[piece.y + 3][piece.x + 2] = 0;
+    if (piece.r3) board[piece.y + 3][piece.x + 3] = 0;
 }
 
-void management_break_line() {
-    int i, j, k;
-    int nb_break_line = 0;
-    for (i = 0; i < 20; i++) {
+
+void verification_gravity() {
+    if (piece.y + 3 == HEIGHT_BLOCK ||
+        board[piece.y + 4][piece.x] != 0 ||
+        board[piece.y + 4][piece.x + 1] != 0 ||
+        board[piece.y + 4][piece.x + 2] != 0 ||
+        board[piece.y + 4][piece.x + 3] != 0) {
+        change_piece();
+        piece.y = 0;
+        piece.x = 0;
+    }
+}
+
+
+void go_back_up_board() {
+    int i, j;
+    for (i = 0; i < HEIGHT_BLOCK; i++) {
+        for (j = 0; j < WIDTH_BLOCK; j++)
+            board[i][j] = board[i + 1][j];
+    }
+}
+
+void go_back_down_board() {
+    int i, j;
+    for (i = HEIGHT_BLOCK - 1; i > 0; i--) {
+        for (j = 0; j < WIDTH_BLOCK; j++)
+            board[i][j] = board[i - 1][j];
+    }
+}
+
+void add_bad_line() {
+    if (nb_little_bad_block - nb_little_bad_block_opponent == LIMIT_BLOCK) {
+        go_back_up_board();
+        int i;
+        for (i = 0; i < WIDTH_BLOCK; i++)
+            board[HEIGHT_BLOCK - 1][i] = 8;
+        nb_line_bad_block++;
+        nb_little_bad_block_opponent += LIMIT_BLOCK;
+    }
+}
+
+void remove_bad_line() {
+    if (nb_line_bad_block != 0) {
+        int i;
+        for (i = 0; i < WIDTH_BLOCK; i++)
+            board[0][i] = 0;
+        go_back_down_board();
+        nb_line_bad_block--;
+    } else {
+        nb_little_bad_block_opponent += BLOCK_TO_REMOVE;
+    }
+}
+
+void gravity() {
+    verification_gravity();
+    if (limit_second == MAX_FPS) {
+        remove_actual_piece_in_board();
+        piece.y++;
+        add_piece_in_board();
+        limit_second = 0;
+    }
+    limit_second++;
+}
+
+void break_line() {
+    int i, j;
+    for (i = 0; i < HEIGHT_BLOCK; i++) {
         int nb_block = 0;
-        for (j = 0; j < 10; j++) {
+        for (j = 0; j < WIDTH_BLOCK; j++) {
             if (board[i][j] != 0)
                 nb_block++;
         }
-        if (nb_block == 10) {
-            nb_break_line++;
-            for (k = i; k > 0; k--) {
-                for (j = 0; j < 10; j++) {
-                    board[k][j] = board[k - 1][j];
-                }
+        if (nb_block == WIDTH_BLOCK) {
+            for (j = 0; j < WIDTH_BLOCK; j++)
+                board[i][j] = 0;
+            remove_bad_line();
+            add_block_query();
+            nb_little_bad_block_opponent++;
+            // back down all line above
+            for (j = i; j > 0; j--) {
+                for (int k = 0; k < WIDTH_BLOCK; k++)
+                    board[j][k] = board[j - 1][k];
             }
         }
     }
 }
 
-void display_board() {
+void set_nb_bad_block() {
+    get_block_query(&nb_little_bad_block);
+    add_bad_line();
+}
+
+
+void display_board(SDL_Renderer *renderer, SDL_Texture *texture_block[8]) {
     int i, j;
-    for (i = 0; i < 20; i++) {
-        for (j = 0; j < 10; j++)
-            printf("%d ", board[i][j]);
-        printf("\n");
+    for (i = 0; i < HEIGHT_BLOCK; i++) {
+        for (j = 0; j < WIDTH_BLOCK; j++) {
+            if (board[i][j] != 0)
+                display_picture(renderer,
+                                texture_block[board[i][j] - 1],
+                                j * SIZE_BLOCK,
+                                i * SIZE_BLOCK,
+                                SIZE_BLOCK,
+                                SIZE_BLOCK);
+        }
     }
+}
+
+void game_manager(SDL_Renderer *renderer, SDL_Texture *texture_block[8]) {
+    break_line();
+    gravity();
+    set_nb_bad_block();
+    display_board(renderer, texture_block);
 }

@@ -7,6 +7,7 @@
 #include "game.h"
 #include "connection.h"
 #include "menu.h"
+#include "tetris.h"
 #include "../include/mysql.h"
 
 #define SDL_MAIN_HANDLED
@@ -62,6 +63,16 @@ int main(int argc, char *argv[]) {
     /* LOAD TEXTURE */
     SDL_Texture *cursor_texture = load_picture("../assets/resources/cursor.bmp", renderer);
     SDL_Texture *start_icon_texture = load_picture("../assets/resources/start.bmp", renderer);
+    SDL_Texture *i_block_texture = load_picture("../assets/resources/I.bmp", renderer);
+    SDL_Texture *j_block_texture = load_picture("../assets/resources/J.bmp", renderer);
+    SDL_Texture *l_block_texture = load_picture("../assets/resources/L.bmp", renderer);
+    SDL_Texture *o_block_texture = load_picture("../assets/resources/O.bmp", renderer);
+    SDL_Texture *s_block_texture = load_picture("../assets/resources/S.bmp", renderer);
+    SDL_Texture *t_block_texture = load_picture("../assets/resources/T.bmp", renderer);
+    SDL_Texture *z_block_texture = load_picture("../assets/resources/Z.bmp", renderer);
+    SDL_Texture *bad_block_texture = load_picture("../assets/resources/bad.bmp", renderer);
+    SDL_Texture *block_textures[8] = {i_block_texture, j_block_texture, l_block_texture, o_block_texture,
+                                      s_block_texture, t_block_texture, z_block_texture, bad_block_texture};
 
 
     /* GAME */
@@ -82,6 +93,8 @@ int main(int argc, char *argv[]) {
 
         if (!in_level)
             display_menu(renderer, &in_level, start_icon_texture);
+        else
+            game_manager(renderer,block_textures);
 
         launch_level(&in_level, KEYS, user_id);
 

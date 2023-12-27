@@ -72,10 +72,31 @@ void add_block_query() {
     mysql_real_connect(&mysql, "127.0.0.1", "c_user", "project_c_password", "project_c", 3007, NULL, 0);
 
     if (mysql_query(&mysql,
-                    "UPDATE PLAYERS SET nb_block,userId = (SELECT nb_block FROM PLAYERS WHERE userId = userId) + 1  ")) {
+                    "UPDATE PLAYERS SET nb_block = (SELECT nb_block FROM PLAYERS WHERE userId = 0) + 1  ")) {
         printf("Error %u: %s\n", mysql_errno(&mysql), mysql_error(&mysql));
         exit(1);
     }
+    mysql_close(&mysql);
+}
+
+void get_block_query(int *nb_block) {
+    MYSQL mysql;
+    MYSQL_ROW row;
+    MYSQL_RES *result;
+    mysql_init(&mysql);
+    mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
+    int opt_use_ssl = SSL_MODE_DISABLED;
+    mysql_options(&mysql, MYSQL_OPT_SSL_MODE, &opt_use_ssl);
+    mysql_real_connect(&mysql, "127.0.0.1", "c_user", "project_c_password", "project_c", 3007, NULL, 0);
+
+    if (mysql_query(&mysql, "SELECT nb_block FROM PLAYERS WHERE userId = 0")) {
+        printf("Error %u: %s\n", mysql_errno(&mysql), mysql_error(&mysql));
+        exit(1);
+    }
+    result = mysql_use_result(&mysql);
+    row = mysql_fetch_row(result);
+    *nb_block += atoi(row[0]);
+    mysql_free_result(result);
     mysql_close(&mysql);
 }
 

@@ -7,6 +7,6 @@ Call Stack (most recent call first):
   CMakeLists.txt:DEFERRED
 
 
--- Configuring done (0.1s)
+-- Configuring done (0.0s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/dalet/other_project/Projet_c_2ESGI/cmake-build-debug
