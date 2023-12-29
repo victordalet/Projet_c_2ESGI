@@ -7,7 +7,7 @@
 
 
 void
-launch_level(bool *in_level, bool KEYS[323], int user_id) {
+launch_level(bool *in_level, bool KEYS[323], int user_id, int board[HEIGHT_BLOCK][WIDTH_BLOCK]) {
     if (!*in_level) {
         int x, y;
         int image_size = 100;
@@ -20,7 +20,7 @@ launch_level(bool *in_level, bool KEYS[323], int user_id) {
             if ((x > min_width && x < max_width) && (y > min_height && y < max_height)) {
                 loading_game(user_id);
                 *in_level = true;
-                init_board();
+                init_board(board);
             }
         }
     }

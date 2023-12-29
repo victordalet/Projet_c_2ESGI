@@ -5,6 +5,6 @@
 #define MENU_H
 
 void
-launch_level(bool *in_level, bool KEYS[323], int user_id);
+launch_level(bool *in_level, bool KEYS[323], int user_id, int board[HEIGHT_BLOCK][WIDTH_BLOCK]);
 
 #endif

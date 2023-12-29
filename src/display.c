@@ -4,7 +4,7 @@
 #include "display.h"
 #include "stdbool.h"
 
-void draw(SDL_Renderer *renderer, int x, int y, int w, int h) {
+void draw(SDL_Renderer *renderer, int x, int y, int w, int h, int r, int g, int b) {
 
     SDL_Rect rect;
     rect.x = x;
@@ -12,7 +12,7 @@ void draw(SDL_Renderer *renderer, int x, int y, int w, int h) {
     rect.w = w;
     rect.h = h;
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 255, g, b, r);
     SDL_RenderDrawRect(renderer, &rect);
 }
 

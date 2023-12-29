@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "game.h"
 
-void draw(SDL_Renderer *renderer, int x, int y, int w, int h);
+void draw(SDL_Renderer *renderer, int x, int y, int w, int h, int r, int g, int b);
 
 SDL_Texture *load_picture(char *url, SDL_Renderer *renderer);
 

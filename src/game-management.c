@@ -1,5 +1,6 @@
 #include "connection.h"
 #include "../include/mysql.h"
+#include "tetris.h"
 #include "game.h"
 #include <time.h>
 #include <stdio.h>
@@ -34,4 +35,19 @@ void loading_game(int user_id) {
         launch_game_query();
         printf("Game launch !\n");
     }
+}
+
+void game_manager(SDL_Renderer *renderer, int block_color[8][3], SDL_Texture *texture_piece[7],
+                  int board[HEIGHT_BLOCK][WIDTH_BLOCK],
+                  int *nb_little_bad_block_opponent,
+                  int *nb_line_bad_block,
+                  int *next_piece,
+                  int *limit_second,
+                  int *nb_little_bad_block,
+                  struct piece *piece) {
+    break_line(board, nb_little_bad_block_opponent, nb_line_bad_block);
+    gravity(limit_second, piece, board, next_piece);
+    set_nb_bad_block(board, nb_little_bad_block, nb_little_bad_block_opponent, nb_line_bad_block);
+    display_next_piece(renderer, texture_piece, *next_piece);
+    display_board(renderer, block_color, board);
 }

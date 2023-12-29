@@ -1,6 +1,10 @@
 #ifndef TETRIS_H
 #define TETRIS_H
 
+#include <stdbool.h>
+#include "game.h"
+#include "../include/SDL.h"
+
 struct piece {
     int x;
     int y;
@@ -24,43 +28,35 @@ struct piece {
     bool r3;
 };
 
-struct piece piece;
-int next_piece;
-int nb_little_bad_block = 0;
-int nb_line_bad_block = 0;
-int nb_little_bad_block_opponent = 0;
-int limit_second = 0;
 
-int board[HEIGHT_BLOCK][WIDTH_BLOCK];
+void init_board(int board[HEIGHT_BLOCK][WIDTH_BLOCK]);
 
-void init_board();
+void change_piece(struct piece *piece, int *next_piece);
 
-void init_piece();
+void add_piece_in_board(struct piece piece, int board[HEIGHT_BLOCK][WIDTH_BLOCK]);
 
-void change_piece();
+void remove_actual_piece_in_board(struct piece piece, int board[HEIGHT_BLOCK][WIDTH_BLOCK]);
 
-void add_piece_in_board();
+void verification_gravity(struct piece *piece, int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *next_piece);
 
-void remove_actual_piece_in_board();
+void go_back_up_board(int board[HEIGHT_BLOCK][WIDTH_BLOCK]);
 
-void verification_gravity();
+void go_back_down_board(int board[HEIGHT_BLOCK][WIDTH_BLOCK]);
 
-void go_back_up_board();
+void add_bad_line(int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *nb_little_bad_block_opponent, int *nb_line_bad_block, int nb_little_bad_block);
 
-void go_back_down_board();
+void remove_bad_line(int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *nb_little_bad_block_opponent, int *nb_line_bad_block);
 
-void add_bad_line();
+void gravity(int *limit_second, struct piece *piece, int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *next_piece);
 
-void remove_bad_line();
+void break_line(int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *nb_little_bad_block_opponent, int *nb_line_bad_block);
 
-void gravity();
+void set_nb_bad_block(int board[HEIGHT_BLOCK][WIDTH_BLOCK],int * nb_little_bad_block, int *nb_little_bad_block_opponent, int *nb_line_bad_block);
 
-void break_line();
+void are_you_lost(bool *in_level, int user_id, int board[HEIGHT_BLOCK][WIDTH_BLOCK]);
 
-void set_nb_bad_block();
+void display_next_piece(SDL_Renderer *renderer, SDL_Texture *texture_piece[7], int next_piece);
 
-void display_board(SDL_Renderer *renderer, SDL_Texture *texture_block[8]);
-
-void game_manager(SDL_Renderer *renderer, SDL_Texture *texture_block[8]);
+void display_board(SDL_Renderer *renderer, int block_color[8][3], int board[HEIGHT_BLOCK][WIDTH_BLOCK]);
 
 #endif
