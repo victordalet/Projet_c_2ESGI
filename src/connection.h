@@ -2,6 +2,8 @@
 #define CONNECTION_H
 
 #include "../include/mysql.h"
+#include "game.h"
+
 
 void giveUserId(int * user_id);
 
@@ -18,5 +20,9 @@ void enter_game_query(int user_id);
 void launch_game_query();
 
 void exit_game_during_game_query(int user_id);
+
+void insert_board_query(int user_id, int board[HEIGHT_BLOCK][WIDTH_BLOCK]);
+
+void get_board_query(int user_id, int other_player_board[NB_OTHER_PLAYER_TO_DISPLAY][HEIGHT_BLOCK][WIDTH_BLOCK]);
 
 #endif

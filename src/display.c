@@ -1,10 +1,12 @@
+#include <stdio.h>
 #include "../include/SDL.h"
 #include "game.h"
 #include "player.h"
 #include "display.h"
 #include "stdbool.h"
+#include "save.h"
 
-void draw(SDL_Renderer *renderer, int x, int y, int w, int h) {
+void draw(SDL_Renderer *renderer, int x, int y, int w, int h, int r, int g, int b, int a) {
 
     SDL_Rect rect;
     rect.x = x;
@@ -12,13 +14,17 @@ void draw(SDL_Renderer *renderer, int x, int y, int w, int h) {
     rect.w = w;
     rect.h = h;
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(renderer, a, g, b, r);
     SDL_RenderDrawRect(renderer, &rect);
 }
 
 
 SDL_Texture *load_picture(char *url, SDL_Renderer *renderer) {
     SDL_Surface *image = SDL_LoadBMP(url);
+    if (image == NULL) {
+        printf("Erreur de chargement de l'image : %s", SDL_GetError());
+        return NULL;
+    }
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, image);
     return texture;
 }
@@ -36,16 +42,28 @@ void display_cursor(SDL_Renderer *renderer, SDL_Texture *texture, bool in_level)
 }
 
 
-void display_menu(SDL_Renderer *renderer, bool *menu, SDL_Texture *start_icon_texture) {
+void display_menu(SDL_Renderer *renderer, bool *menu, SDL_Texture *start_icon_texture, SDL_Texture *stat_texture) {
     int width = 100;
     int height = 100;
     display_picture(renderer, start_icon_texture, WINDOW_WIDTH / 2 - (width / 2),
                     WINDOW_HEIGHT / 2 - height / 2, width, height);
-
-
+    display_picture(renderer, stat_texture, 50,
+                    WINDOW_HEIGHT - width - 50, width, height);
 
 }
 
-void display_text(SDL_Renderer *renderer, char *text) {
-    return;
+void display_last_board(SDL_Renderer *renderer, int block_color[8][3], int board[HEIGHT_BLOCK][WIDTH_BLOCK],
+                        SDL_Texture *home_texture) {
+    read_save("../assets/save/board.txt", board);
+    display_picture(renderer, home_texture, 20, 20, 50, 50);
+    for (int i = 0; i < HEIGHT_BLOCK; i++) {
+        for (int j = 0; j < WIDTH_BLOCK; j++) {
+            if (board[i][j] != 0) {
+                draw(renderer, j * SIZE_BLOCK + (WINDOW_WIDTH / 2) - (SIZE_BLOCK * WIDTH_BLOCK / 2), i * SIZE_BLOCK,
+                     SIZE_BLOCK, SIZE_BLOCK,
+                     block_color[board[i][j]][0], block_color[board[i][j]][1], block_color[board[i][j]][2], 255);
+            }
+        }
+    }
+
 }

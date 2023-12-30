@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include "../include/mysql.h"
+#include "game.h"
+#include "save.h"
+
 
 void giveUserId(int *user_id) {
     MYSQL mysql;
@@ -72,7 +75,7 @@ void add_block_query() {
     mysql_real_connect(&mysql, "127.0.0.1", "c_user", "project_c_password", "project_c", 3007, NULL, 0);
 
     if (mysql_query(&mysql,
-                    "UPDATE PLAYERS SET nb_block = (SELECT nb_block FROM PLAYERS WHERE userId = 0) + 1  ")) {
+                    "UPDATE PLAYERS SET nb_block = nb_block + 1")) {
         printf("Error %u: %s\n", mysql_errno(&mysql), mysql_error(&mysql));
         exit(1);
     }
@@ -89,13 +92,13 @@ void get_block_query(int *nb_block) {
     mysql_options(&mysql, MYSQL_OPT_SSL_MODE, &opt_use_ssl);
     mysql_real_connect(&mysql, "127.0.0.1", "c_user", "project_c_password", "project_c", 3007, NULL, 0);
 
-    if (mysql_query(&mysql, "SELECT nb_block FROM PLAYERS WHERE userId = 0")) {
+    if (mysql_query(&mysql, "SELECT nb_block FROM PLAYERS WHERE userId = 1")) {
         printf("Error %u: %s\n", mysql_errno(&mysql), mysql_error(&mysql));
         exit(1);
     }
     result = mysql_use_result(&mysql);
     row = mysql_fetch_row(result);
-    *nb_block += atoi(row[0]);
+    *nb_block = atoi(row[0]);
     mysql_free_result(result);
     mysql_close(&mysql);
 }
@@ -156,5 +159,71 @@ void exit_game_during_game_query(int user_id) {
         exit(1);
     }
     mysql_close(&mysql);
+}
+
+void insert_board_query(int user_id, int board[HEIGHT_BLOCK][WIDTH_BLOCK]) {
+    MYSQL mysql;
+    mysql_init(&mysql);
+    mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
+    int opt_use_ssl = SSL_MODE_DISABLED;
+    mysql_options(&mysql, MYSQL_OPT_SSL_MODE, &opt_use_ssl);
+    mysql_real_connect(&mysql, "127.0.0.1", "c_user", "project_c_password", "project_c", 3007, NULL, 0);
+
+    char board_string[HEIGHT_BLOCK * WIDTH_BLOCK + 1];
+    int i, j, k = 0;
+    for (i = 0; i < HEIGHT_BLOCK; i++) {
+        for (j = 0; j < WIDTH_BLOCK; j++) {
+            itoa(board[i][j], &board_string[k], 10);
+            k++;
+        }
+    }
+
+    save("../assets/save/board.txt", board_string);
+
+    char query[100];
+    sprintf(query, "UPDATE PLAYERS SET game = '%s' WHERE userId = %d", board_string, user_id);
+    if (mysql_query(&mysql, query)) {
+        printf("Error %u: %s\n", mysql_errno(&mysql), mysql_error(&mysql));
+        exit(1);
+    }
+    mysql_close(&mysql);
+
+}
+
+
+void get_board_query(int user_id, int other_player_board[NB_OTHER_PLAYER_TO_DISPLAY][HEIGHT_BLOCK][WIDTH_BLOCK]) {
+    MYSQL mysql;
+    MYSQL_ROW row;
+    MYSQL_RES *result;
+    mysql_init(&mysql);
+    mysql_options(&mysql, MYSQL_READ_DEFAULT_GROUP, "option");
+    int opt_use_ssl = SSL_MODE_DISABLED;
+
+    mysql_options(&mysql, MYSQL_OPT_SSL_MODE, &opt_use_ssl);
+    mysql_real_connect(&mysql, "127.0.0.1", "c_user", "project_c_password", "project_c", 3007, NULL, 0);
+
+    char query[100];
+    //sprintf(query, "SELECT game FROM PLAYERS  WHERE userId != %d AND in_game= 2", user_id);
+    sprintf(query, "SELECT game FROM PLAYERS  WHERE in_game= 2"); // TODO : remove this line
+    if (mysql_query(&mysql, query)) {
+        printf("Error %u: %s\n", mysql_errno(&mysql), mysql_error(&mysql));
+        exit(1);
+    }
+
+
+    result = mysql_use_result(&mysql);
+    int index_nb_other_player = 0;
+    while ((row = mysql_fetch_row(result)) != NULL) {
+        for (int i = 0; i < HEIGHT_BLOCK; i++) {
+            for (int j = 0; j < WIDTH_BLOCK; j++) {
+                char temp_string = row[0][i * WIDTH_BLOCK + j];
+                other_player_board[index_nb_other_player][i][j] = atoi(&temp_string);
+            }
+        }
+        index_nb_other_player++;
+        if (index_nb_other_player == NB_OTHER_PLAYER_TO_DISPLAY)
+            break;
+    }
+
 }
 
