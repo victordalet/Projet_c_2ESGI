@@ -13,8 +13,9 @@ void display_picture(SDL_Renderer *renderer, SDL_Texture *texture, int x, int y,
 
 void display_cursor(SDL_Renderer *renderer, SDL_Texture *texture, bool in_level);
 
-void display_menu(SDL_Renderer *renderer, bool * menu, SDL_Texture *start_icon_texture);
+void display_menu(SDL_Renderer *renderer, bool *menu, SDL_Texture *start_icon_texture, SDL_Texture *stat_texture);
 
-void display_text(SDL_Renderer *renderer, char *text);
+void display_last_board(SDL_Renderer *renderer, int block_color[8][3], int board[HEIGHT_BLOCK][WIDTH_BLOCK],
+                        SDL_Texture *home_texture);
 
 #endif

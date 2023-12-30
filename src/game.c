@@ -27,6 +27,7 @@ int main(int argc, char *argv[]) {
     bool in_level = false;
     int user_id;
     bool run = true;
+    bool in_stat = false;
 
     struct piece piece;
     int next_piece = (int) (rand() % 7) + 1;;
@@ -87,6 +88,8 @@ int main(int argc, char *argv[]) {
     SDL_Texture *t_block_texture = load_picture("../assets/resources/T.bmp", renderer);
     SDL_Texture *z_block_texture = load_picture("../assets/resources/Z.bmp", renderer);
     SDL_Texture *loading_texture = load_picture("../assets/resources/load.bmp", renderer);
+    SDL_Texture *stat_texture = load_picture("../assets/resources/stat.bmp", renderer);
+    SDL_Texture *home_texture = load_picture("../assets/resources/home.bmp", renderer);
     SDL_Texture *texture_piece[7] = {i_block_texture, j_block_texture, l_block_texture, o_block_texture,
                                      s_block_texture, t_block_texture, z_block_texture};
     int block_color[8][3] = {{134, 178, 240},
@@ -115,16 +118,17 @@ int main(int argc, char *argv[]) {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        if (!in_level)
-            display_menu(renderer, &in_level, start_icon_texture);
-        else {
+        if (!in_level && !in_stat)
+            display_menu(renderer, &in_level, start_icon_texture, stat_texture);
+        else if (in_level) {
             //are_you_lost(&in_level, user_id, board);
             game_manager(renderer, block_color, texture_piece, board, &nb_little_bad_block_opponent,
                          &nb_line_bad_block, &next_piece, &limit_second, &nb_little_bad_block, &piece, &speed_gravity,
                          user_id, other_player_board);
-        }
+        } else if (in_stat)
+            display_last_board(renderer, block_color, board, home_texture);
 
-        launch_level(&in_level, KEYS, user_id, board, &piece, &next_piece, loading_texture,renderer);
+        launch_level(&in_level, KEYS, user_id, board, &piece, &next_piece, loading_texture, renderer, &in_stat);
 
         display_cursor(renderer, cursor_texture, in_level);
         keyboard_manager(KEYS, &piece, board, &next_piece, &speed_gravity, user_id, other_player_board);

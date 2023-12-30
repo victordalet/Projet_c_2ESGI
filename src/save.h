@@ -3,7 +3,7 @@
 
 #include "game.h"
 
-void read_file(char *file_name);
+void read_save(char *file_name, int board[HEIGHT_BLOCK][WIDTH_BLOCK]);
 
 void save(char *file_name, char *string);
 
