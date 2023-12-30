@@ -19,7 +19,7 @@
 
 int main(int argc, char *argv[]) {
 
-    //PlaySound("assets/audio/tetris.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+    PlaySound("../assets/audio/tetris.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
     /* DEFINE GAME VARIABLE */
     srand(time(NULL));
