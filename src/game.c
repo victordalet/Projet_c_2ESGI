@@ -66,7 +66,7 @@ int main(int argc, char *argv[]) {
             SDL_WINDOWPOS_CENTERED,
             WINDOW_WIDTH,
             WINDOW_HEIGHT,
-            SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN
+            SDL_WINDOW_FULLSCREEN
     );
 
 
@@ -121,7 +121,7 @@ int main(int argc, char *argv[]) {
         if (!in_level && !in_stat)
             display_menu(renderer, &in_level, start_icon_texture, stat_texture);
         else if (in_level) {
-            //are_you_lost(&in_level, user_id, board);
+            are_you_lost(&in_level, user_id, board);
             game_manager(renderer, block_color, texture_piece, board, &nb_little_bad_block_opponent,
                          &nb_line_bad_block, &next_piece, &limit_second, &nb_little_bad_block, &piece, &speed_gravity,
                          user_id, other_player_board);
