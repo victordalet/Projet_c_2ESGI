@@ -36,6 +36,10 @@ int main(int argc, char *argv[]) {
     int limit_second = 0;
     int speed_gravity = (int) (rand() % 40) + 20;
     int board[HEIGHT_BLOCK][WIDTH_BLOCK];
+    int other_player_board[NB_OTHER_PLAYER_TO_DISPLAY][HEIGHT_BLOCK][WIDTH_BLOCK];
+    for (int i = 0; i < NB_OTHER_PLAYER_TO_DISPLAY; i++)
+        init_board(other_player_board[i]);
+
 
     /* DEFINE KEY EVENT */
 
@@ -61,7 +65,7 @@ int main(int argc, char *argv[]) {
             SDL_WINDOWPOS_CENTERED,
             WINDOW_WIDTH,
             WINDOW_HEIGHT,
-            SDL_WINDOW_FULLSCREEN
+            SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN
     );
 
 
@@ -117,13 +121,13 @@ int main(int argc, char *argv[]) {
             //are_you_lost(&in_level, user_id, board);
             game_manager(renderer, block_color, texture_piece, board, &nb_little_bad_block_opponent,
                          &nb_line_bad_block, &next_piece, &limit_second, &nb_little_bad_block, &piece, &speed_gravity,
-                         user_id);
+                         user_id, other_player_board);
         }
 
         launch_level(&in_level, KEYS, user_id, board, &piece, &next_piece, loading_texture,renderer);
 
         display_cursor(renderer, cursor_texture, in_level);
-        keyboard_manager(KEYS, &piece, board, &next_piece, &speed_gravity, user_id);
+        keyboard_manager(KEYS, &piece, board, &next_piece, &speed_gravity, user_id, other_player_board);
         SDL_RenderPresent(renderer);
     }
 

@@ -60,16 +60,19 @@ void remove_actual_piece_in_board(struct piece piece, int board[HEIGHT_BLOCK][WI
 }
 
 
-void verification_gravity(struct piece *piece, int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *next_piece, int *speed_gravity, int user_id) {
+void
+verification_gravity(struct piece *piece, int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *next_piece, int *speed_gravity,
+                     int user_id, int other_player_board[NB_OTHER_PLAYER_TO_DISPLAY][HEIGHT_BLOCK][WIDTH_BLOCK]) {
     // make condition for gravity for this tetris game (the objective is to place the piece in the bottom of the board or in a piece)
     if (piece->y + 4 == HEIGHT_BLOCK ||
         (board[piece->y + 4][piece->x] != 0 && piece->x3) ||
-        (board[piece->y + 4][piece->x + 1] != 0 && piece->y3)||
+        (board[piece->y + 4][piece->x + 1] != 0 && piece->y3) ||
         (board[piece->y + 4][piece->x + 2] != 0 && piece->z3) ||
         (board[piece->y + 4][piece->x + 3] != 0 && piece->r3)) {
         change_piece(piece, next_piece);
         insert_board_query(user_id, board);
-        *speed_gravity = (int) (rand() % 30) ;
+        get_board_query(user_id, other_player_board);
+        *speed_gravity = (int) (rand() % 30);
         piece->y = 0;
         piece->x = 0;
     }
@@ -78,11 +81,12 @@ void verification_gravity(struct piece *piece, int board[HEIGHT_BLOCK][WIDTH_BLO
 
 
 void go_back_up_board(int board[HEIGHT_BLOCK][WIDTH_BLOCK]) {
-    int i, j;
-    for (i = 0; i < HEIGHT_BLOCK; i++) {
-        for (j = 0; j < WIDTH_BLOCK; j++)
-            board[i][j] = board[i + 1][j];
+    for (int i = 1; i < HEIGHT_BLOCK; i++) {
+        for (int j = 0; j < WIDTH_BLOCK; j++)
+            board[i - 1][j] = board[i][j];
     }
+    for (int i = 0; i < WIDTH_BLOCK; i++)
+        board[HEIGHT_BLOCK - 1][i] = 0;
 }
 
 void go_back_down_board(int board[HEIGHT_BLOCK][WIDTH_BLOCK]) {
@@ -95,13 +99,14 @@ void go_back_down_board(int board[HEIGHT_BLOCK][WIDTH_BLOCK]) {
 
 void add_bad_line(int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *nb_little_bad_block_opponent, int *nb_line_bad_block,
                   int nb_little_bad_block) {
-    if (nb_little_bad_block - *nb_little_bad_block_opponent == LIMIT_BLOCK) {
-        go_back_up_board(board);
-        int i;
-        for (i = 0; i < WIDTH_BLOCK; i++)
-            board[HEIGHT_BLOCK - 1][i] = 8;
-        *nb_line_bad_block += 1;
+    for (int i = 0; i < (nb_little_bad_block - *nb_little_bad_block_opponent - LIMIT_BLOCK); i += LIMIT_BLOCK) {
         *nb_little_bad_block_opponent += LIMIT_BLOCK;
+        *nb_line_bad_block += 1;
+        go_back_up_board(board);
+        int temp = (int) (rand() % WIDTH_BLOCK);
+        for (int j = 0; j < WIDTH_BLOCK; j++)
+            if (j != temp)
+                board[HEIGHT_BLOCK - 1][j] = 8;
     }
 }
 
@@ -117,10 +122,9 @@ void remove_bad_line(int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *nb_little_bad_bl
     }
 }
 
-void gravity(int *limit_second, struct piece *piece, int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *next_piece, int *speed_gravity,int user_id) {
-    printf("limit_second : %d\n", *limit_second);
-    printf("speed_gravity : %d\n", *speed_gravity);
-    verification_gravity(piece, board, next_piece, speed_gravity, user_id);
+void gravity(int *limit_second, struct piece *piece, int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *next_piece,
+             int *speed_gravity, int user_id, int other_player_board[NB_OTHER_PLAYER_TO_DISPLAY][HEIGHT_BLOCK][WIDTH_BLOCK]) {
+    verification_gravity(piece, board, next_piece, speed_gravity, user_id, other_player_board);
     if (*limit_second >= *speed_gravity) {
         remove_actual_piece_in_board(*piece, board);
         piece->y++;

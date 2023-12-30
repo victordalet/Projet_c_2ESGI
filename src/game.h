@@ -11,5 +11,6 @@
 #define WIDTH_BLOCK 10
 #define SIZE_BLOCK 20
 #define FPS 40
+#define NB_OTHER_PLAYER_TO_DISPLAY 6
 #endif
 

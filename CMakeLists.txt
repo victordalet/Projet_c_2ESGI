@@ -28,8 +28,6 @@ add_executable(Projet_c_2ESGI
         src/tetris_piece.h
         src/tetris_front.c
         src/tetris_front.h
-        src/list.c
-        src/list.h
         src/save.c
         src/save.h
 )

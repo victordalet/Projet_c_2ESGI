@@ -138,7 +138,6 @@ void init_piece(struct piece *piece) {
 
 void rotate_piece_horrible_function(struct piece *piece) {
     int temp_x, temp_y;
-    printf("piece->rotation = %d\n", piece->rotation);
     switch (piece->rotation) {
         case 0:
             temp_x = piece->x;

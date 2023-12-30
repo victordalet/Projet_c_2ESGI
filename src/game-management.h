@@ -15,6 +15,7 @@ void game_manager(SDL_Renderer *renderer, int block_color[8][3], SDL_Texture *te
                   int *nb_little_bad_block,
                   struct piece *piece,
                   int *speed_gravity,
-                  int user_id);
+                  int user_id,
+                  int other_player_board[NB_OTHER_PLAYER_TO_DISPLAY][HEIGHT_BLOCK][WIDTH_BLOCK]);
 
 #endif
