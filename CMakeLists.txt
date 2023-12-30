@@ -26,6 +26,12 @@ add_executable(Projet_c_2ESGI
         src/tetris_player_action.c
         src/tetris_piece.c
         src/tetris_piece.h
+        src/tetris_front.c
+        src/tetris_front.h
+        src/list.c
+        src/list.h
+        src/save.c
+        src/save.h
 )
 
-target_link_libraries(Projet_c_2ESGI SDL2main SDL2 libmysql)
+target_link_libraries(Projet_c_2ESGI SDL2main SDL2 libmysql winmm)

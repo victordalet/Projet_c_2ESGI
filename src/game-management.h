@@ -13,6 +13,8 @@ void game_manager(SDL_Renderer *renderer, int block_color[8][3], SDL_Texture *te
                   int *next_piece,
                   int *limit_second,
                   int *nb_little_bad_block,
-                  struct piece *piece);
+                  struct piece *piece,
+                  int *speed_gravity,
+                  int user_id);
 
 #endif

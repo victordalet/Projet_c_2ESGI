@@ -119,6 +119,27 @@ build CMakeFiles/Projet_c_2ESGI.dir/src/tetris_piece.c.obj: C_COMPILER__Projet_c
   OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
   OBJECT_FILE_DIR = CMakeFiles\Projet_c_2ESGI.dir\src
 
+build CMakeFiles/Projet_c_2ESGI.dir/src/tetris_front.c.obj: C_COMPILER__Projet_c_2ESGI_unscanned_Debug C$:/Users/dalet/other_project/Projet_c_2ESGI/src/tetris_front.c || cmake_object_order_depends_target_Projet_c_2ESGI
+  DEP_FILE = CMakeFiles\Projet_c_2ESGI.dir\src\tetris_front.c.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/dalet/other_project/Projet_c_2ESGI/include
+  OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
+  OBJECT_FILE_DIR = CMakeFiles\Projet_c_2ESGI.dir\src
+
+build CMakeFiles/Projet_c_2ESGI.dir/src/list.c.obj: C_COMPILER__Projet_c_2ESGI_unscanned_Debug C$:/Users/dalet/other_project/Projet_c_2ESGI/src/list.c || cmake_object_order_depends_target_Projet_c_2ESGI
+  DEP_FILE = CMakeFiles\Projet_c_2ESGI.dir\src\list.c.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/dalet/other_project/Projet_c_2ESGI/include
+  OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
+  OBJECT_FILE_DIR = CMakeFiles\Projet_c_2ESGI.dir\src
+
+build CMakeFiles/Projet_c_2ESGI.dir/src/save.c.obj: C_COMPILER__Projet_c_2ESGI_unscanned_Debug C$:/Users/dalet/other_project/Projet_c_2ESGI/src/save.c || cmake_object_order_depends_target_Projet_c_2ESGI
+  DEP_FILE = CMakeFiles\Projet_c_2ESGI.dir\src\save.c.obj.d
+  FLAGS = -Wall -Werror -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/dalet/other_project/Projet_c_2ESGI/include
+  OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
+  OBJECT_FILE_DIR = CMakeFiles\Projet_c_2ESGI.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Projet_c_2ESGI
@@ -127,9 +148,9 @@ build CMakeFiles/Projet_c_2ESGI.dir/src/tetris_piece.c.obj: C_COMPILER__Projet_c
 #############################################
 # Link the executable Projet_c_2ESGI.exe
 
-build Projet_c_2ESGI.exe: C_EXECUTABLE_LINKER__Projet_c_2ESGI_Debug CMakeFiles/Projet_c_2ESGI.dir/src/game.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/display.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/event.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/player.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/menu.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/connection.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/game-management.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/tetris.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/tetris_player_action.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/tetris_piece.c.obj
+build Projet_c_2ESGI.exe: C_EXECUTABLE_LINKER__Projet_c_2ESGI_Debug CMakeFiles/Projet_c_2ESGI.dir/src/game.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/display.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/event.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/player.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/menu.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/connection.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/game-management.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/tetris.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/tetris_player_action.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/tetris_piece.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/tetris_front.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/list.c.obj CMakeFiles/Projet_c_2ESGI.dir/src/save.c.obj
   FLAGS = -Wall -Werror -g
-  LINK_LIBRARIES = -lSDL2main  -lSDL2  -llibmysql  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = -lSDL2main  -lSDL2  -llibmysql  -lwinmm  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/dalet/other_project/Projet_c_2ESGI/lib
   OBJECT_DIR = CMakeFiles\Projet_c_2ESGI.dir
   POST_BUILD = cd .

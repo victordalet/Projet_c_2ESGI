@@ -1,10 +1,11 @@
+#include <stdio.h>
 #include "../include/SDL.h"
 #include "game.h"
 #include "player.h"
 #include "display.h"
 #include "stdbool.h"
 
-void draw(SDL_Renderer *renderer, int x, int y, int w, int h, int r, int g, int b) {
+void draw(SDL_Renderer *renderer, int x, int y, int w, int h, int r, int g, int b, int a) {
 
     SDL_Rect rect;
     rect.x = x;
@@ -12,13 +13,17 @@ void draw(SDL_Renderer *renderer, int x, int y, int w, int h, int r, int g, int 
     rect.w = w;
     rect.h = h;
 
-    SDL_SetRenderDrawColor(renderer, 255, g, b, r);
+    SDL_SetRenderDrawColor(renderer, a, g, b, r);
     SDL_RenderDrawRect(renderer, &rect);
 }
 
 
 SDL_Texture *load_picture(char *url, SDL_Renderer *renderer) {
     SDL_Surface *image = SDL_LoadBMP(url);
+    if (image == NULL) {
+        printf("Erreur de chargement de l'image : %s", SDL_GetError());
+        return NULL;
+    }
     SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, image);
     return texture;
 }

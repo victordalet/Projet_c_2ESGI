@@ -11,26 +11,30 @@
 #include "../include/mysql.h"
 #include "game-management.h"
 #include "tetris.h"
+#include <windows.h>
+#include <mmsystem.h>
 
 #define SDL_MAIN_HANDLED
 
 
 int main(int argc, char *argv[]) {
 
-    srand(time(NULL));
+    //PlaySound("assets/audio/tetris.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
     /* DEFINE GAME VARIABLE */
+    srand(time(NULL));
 
     bool in_level = false;
     int user_id;
     bool run = true;
 
     struct piece piece;
-    int next_piece;
+    int next_piece = (int) (rand() % 7) + 1;;
     int nb_little_bad_block = 0;
     int nb_line_bad_block = 0;
     int nb_little_bad_block_opponent = 0;
     int limit_second = 0;
+    int speed_gravity = (int) (rand() % 40) + 20;
     int board[HEIGHT_BLOCK][WIDTH_BLOCK];
 
     /* DEFINE KEY EVENT */
@@ -78,6 +82,7 @@ int main(int argc, char *argv[]) {
     SDL_Texture *s_block_texture = load_picture("../assets/resources/S.bmp", renderer);
     SDL_Texture *t_block_texture = load_picture("../assets/resources/T.bmp", renderer);
     SDL_Texture *z_block_texture = load_picture("../assets/resources/Z.bmp", renderer);
+    SDL_Texture *loading_texture = load_picture("../assets/resources/load.bmp", renderer);
     SDL_Texture *texture_piece[7] = {i_block_texture, j_block_texture, l_block_texture, o_block_texture,
                                      s_block_texture, t_block_texture, z_block_texture};
     int block_color[8][3] = {{134, 178, 240},
@@ -98,7 +103,7 @@ int main(int argc, char *argv[]) {
 
     while (run) {
         SDL_Event event;
-        SDL_Delay(1);
+        SDL_Delay(FPS);
 
         while (SDL_PollEvent(&event))
             event_manager(event, &run, KEYS, &piece, board, &next_piece);
@@ -109,15 +114,16 @@ int main(int argc, char *argv[]) {
         if (!in_level)
             display_menu(renderer, &in_level, start_icon_texture);
         else {
-            are_you_lost(&in_level, user_id, board);
+            //are_you_lost(&in_level, user_id, board);
             game_manager(renderer, block_color, texture_piece, board, &nb_little_bad_block_opponent,
-                         &nb_line_bad_block, &next_piece, &limit_second, &nb_little_bad_block, &piece);
+                         &nb_line_bad_block, &next_piece, &limit_second, &nb_little_bad_block, &piece, &speed_gravity,
+                         user_id);
         }
 
-        launch_level(&in_level, KEYS, user_id, board);
+        launch_level(&in_level, KEYS, user_id, board, &piece, &next_piece, loading_texture,renderer);
 
         display_cursor(renderer, cursor_texture, in_level);
-        keyboard_manager(KEYS);
+        keyboard_manager(KEYS, &piece, board, &next_piece, &speed_gravity, user_id);
         SDL_RenderPresent(renderer);
     }
 

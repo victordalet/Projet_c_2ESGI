@@ -25,19 +25,17 @@ void event_manager(SDL_Event event, bool *run, bool KEYS[323]) {
     }
 }
 
-void keyboard_manager(bool KEYS[323], struct piece *piece, int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *next_piece) {
+void keyboard_manager(bool KEYS[323], struct piece *piece, int board[HEIGHT_BLOCK][WIDTH_BLOCK], int *next_piece,int *speed_gravity, int user_id) {
     if (KEYS[(int) 'a'] || KEYS[(int) ' '])
-        set_rotation(1, piece, *next_piece);
-    if (KEYS[(int) 'e'])
-        set_rotation(-1, piece, *next_piece);
+        set_rotation(1, piece,board);
     if (KEYS[(int) 'd'])
-        move_right(piece, board, next_piece);
+        move_right(piece, board, next_piece,speed_gravity,user_id);
     if (KEYS[(int) 'q'])
-        move_left(piece, board, next_piece);
+        move_left(piece, board, next_piece,speed_gravity,user_id);
     if (KEYS[(int) 'z'])
-        move_direct_down(piece, board, next_piece);
+        move_direct_down(piece, board, next_piece,speed_gravity,user_id);
     if (KEYS[(int) 's'])
-        move_down(piece, board, next_piece);
+        move_down(piece, board, next_piece,speed_gravity,user_id);
     if (!KEYS[323]) {
         KEYS[323] = true;
     }

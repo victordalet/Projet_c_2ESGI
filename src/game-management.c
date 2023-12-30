@@ -1,6 +1,7 @@
 #include "connection.h"
 #include "../include/mysql.h"
 #include "tetris.h"
+#include "tetris_front.h"
 #include "game.h"
 #include <time.h>
 #include <stdio.h>
@@ -44,10 +45,14 @@ void game_manager(SDL_Renderer *renderer, int block_color[8][3], SDL_Texture *te
                   int *next_piece,
                   int *limit_second,
                   int *nb_little_bad_block,
-                  struct piece *piece) {
+                  struct piece *piece,
+                  int *speed_gravity,
+                  int user_id) {
     break_line(board, nb_little_bad_block_opponent, nb_line_bad_block);
-    gravity(limit_second, piece, board, next_piece);
+    gravity(limit_second, piece, board, next_piece, speed_gravity,user_id);
     set_nb_bad_block(board, nb_little_bad_block, nb_little_bad_block_opponent, nb_line_bad_block);
+    display_grid(renderer);
     display_next_piece(renderer, texture_piece, *next_piece);
     display_board(renderer, block_color, board);
+    display_bad_piece_on_left_side(renderer, *nb_little_bad_block, *nb_little_bad_block_opponent);
 }

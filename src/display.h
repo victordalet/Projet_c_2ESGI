@@ -2,9 +2,10 @@
 #define DISPLAY_H
 
 #include <stdbool.h>
+#include "../include/SDL.h"
 #include "game.h"
 
-void draw(SDL_Renderer *renderer, int x, int y, int w, int h, int r, int g, int b);
+void draw(SDL_Renderer *renderer, int x, int y, int w, int h, int r, int g, int b, int a);
 
 SDL_Texture *load_picture(char *url, SDL_Renderer *renderer);
 
