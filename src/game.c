@@ -2,25 +2,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "../include/SDL.h"
+#include <SDL2/SDL.h>
 #include "event.h"
 #include "display.h"
 #include "game.h"
 #include "connection.h"
 #include "menu.h"
-#include "../include/mysql.h"
+#include <mysql/mysql.h>
 #include "game-management.h"
 #include "tetris.h"
-#include <windows.h>
-#include <mmsystem.h>
 
 #define SDL_MAIN_HANDLED
 
 
 int main(int argc, char *argv[]) {
-
-    PlaySound("../assets/audio/tetris.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
-
     /* DEFINE GAME VARIABLE */
     srand(time(NULL));
 
@@ -58,15 +53,20 @@ int main(int argc, char *argv[]) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
         exit(1);
 
+    //Play music on linux
+    system("aplay ../assets/audio/tetris.wav &");
+    //Play music on windows
+    //PlaySound("../assets/audio/tetris.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
     SDL_StartTextInput();
 
     SDL_Window *window = SDL_CreateWindow(
-            "GAME PROJECT C",
-            SDL_WINDOWPOS_CENTERED,
-            SDL_WINDOWPOS_CENTERED,
-            WINDOW_WIDTH,
-            WINDOW_HEIGHT,
-            SDL_WINDOW_FULLSCREEN
+        "GAME PROJECT C",
+        SDL_WINDOWPOS_CENTERED,
+        SDL_WINDOWPOS_CENTERED,
+        WINDOW_WIDTH,
+        WINDOW_HEIGHT,
+        SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN
     );
 
 
@@ -90,16 +90,20 @@ int main(int argc, char *argv[]) {
     SDL_Texture *loading_texture = load_picture("../assets/resources/load.bmp", renderer);
     SDL_Texture *stat_texture = load_picture("../assets/resources/stat.bmp", renderer);
     SDL_Texture *home_texture = load_picture("../assets/resources/home.bmp", renderer);
-    SDL_Texture *texture_piece[7] = {i_block_texture, j_block_texture, l_block_texture, o_block_texture,
-                                     s_block_texture, t_block_texture, z_block_texture};
-    int block_color[8][3] = {{134, 178, 240},
-                             {16,  66,  137},
-                             {237, 138, 42},
-                             {245, 242, 46},
-                             {81,  197, 38},
-                             {106, 38,  197},
-                             {197, 60,  38},
-                             {122, 115, 114}};
+    SDL_Texture *texture_piece[7] = {
+        i_block_texture, j_block_texture, l_block_texture, o_block_texture,
+        s_block_texture, t_block_texture, z_block_texture
+    };
+    int block_color[8][3] = {
+        {134, 178, 240},
+        {16, 66, 137},
+        {237, 138, 42},
+        {245, 242, 46},
+        {81, 197, 38},
+        {106, 38, 197},
+        {197, 60, 38},
+        {122, 115, 114}
+    };
 
 
     /* GAME */

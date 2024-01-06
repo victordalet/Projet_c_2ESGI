@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../include/SDL.h"
+#include <SDL2/SDL.h>
 #include "game.h"
 #include "player.h"
 #include "display.h"

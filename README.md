@@ -49,6 +49,16 @@ docker compose -f docker-compose.test.yml up -d
 gcc -o game.exe game.c
 ```
 
+### Install SDL2
+```bash
+git clone https://github.com/libsdl-org/SDL.git -b SDL2
+cd SDL
+mkdir build
+cd build
+../configure
+make
+sudo make install
+```
 
 
 ## Documentation

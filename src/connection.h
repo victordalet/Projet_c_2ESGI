@@ -1,7 +1,7 @@
 #ifndef CONNECTION_H
 #define CONNECTION_H
 
-#include "../include/mysql.h"
+#include <mysql/mysql.h>
 #include "game.h"
 
 

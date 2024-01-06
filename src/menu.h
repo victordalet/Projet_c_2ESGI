@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include "../include/mysql.h"
+#include <mysql/mysql.h>
 
 #ifndef MENU_H
 #define MENU_H

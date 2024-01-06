@@ -1,8 +1,8 @@
-#include "sdl.h"
+#include <SDL2/SDL.h>
 #include "stdbool.h"
 #include "game.h"
 #include "game-management.h"
-#include "../include/mysql.h"
+#include <mysql/mysql.h>
 #include "tetris.h"
 #include "display.h"
 

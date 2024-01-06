@@ -2,7 +2,7 @@
 #define DISPLAY_H
 
 #include <stdbool.h>
-#include "../include/SDL.h"
+#include <SDL2/SDL.h>
 #include "game.h"
 
 void draw(SDL_Renderer *renderer, int x, int y, int w, int h, int r, int g, int b, int a);

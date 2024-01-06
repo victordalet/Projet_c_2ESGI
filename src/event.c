@@ -1,5 +1,5 @@
 #include "stdbool.h"
-#include "../include/sdl.h"
+#include <SDL2/SDL.h>
 #include "tetris_player_action.h"
 #include "game.h"
 #include "tetris.h"
