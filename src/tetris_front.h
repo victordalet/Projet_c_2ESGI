@@ -2,7 +2,7 @@
 #define TETRIS_FRONT_H
 
 #include "game.h"
-#include "../include/SDL.h"
+#include <SDL2/SDL.h>
 
 void display_next_piece(SDL_Renderer *renderer, SDL_Texture *texture_piece[7], int next_piece);
 

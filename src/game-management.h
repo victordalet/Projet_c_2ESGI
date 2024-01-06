@@ -1,7 +1,7 @@
 #ifndef GAME_MANAGEMENT_H
 #define GAME_MANAGEMENT_H
 
-#include "../include/mysql.h"
+#include <mysql/mysql.h>
 #include "tetris.h"
 
 void loading_game(int user_id);

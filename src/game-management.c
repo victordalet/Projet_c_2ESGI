@@ -1,5 +1,5 @@
 #include "connection.h"
-#include "../include/mysql.h"
+#include <mysql/mysql.h>
 #include "tetris.h"
 #include "tetris_front.h"
 #include "game.h"

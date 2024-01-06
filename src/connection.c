@@ -1,15 +1,18 @@
+#include <assert.h>
 #include <stdio.h>
-#include "../include/mysql.h"
+#include <stdlib.h>
+#include <mysql/mysql.h>
 #include "game.h"
 #include "save.h"
+#include "linux_function.h"
+
 
 
 char *get_ip() {
     FILE *fptr = fopen("../assets/conf/.env", "r");
     char env[300];
     fgets(env, 300, fptr);
-    strtok(env, "=");
-    return strtok(NULL, "=");
+    return str_split(env, '=')[1];
 }
 
 
@@ -23,7 +26,6 @@ void giveUserId(int *user_id) {
 
     MYSQL_ROW row;
     MYSQL_RES *result;
-
     if (mysql_query(&mysql, "INSERT INTO PLAYERS(in_game,nb_block) VALUES (0,0)")) {
         printf("Error %u: %s\n", mysql_errno(&mysql), mysql_error(&mysql));
         exit(1);
@@ -189,14 +191,13 @@ void insert_board_query(int user_id, int board[HEIGHT_BLOCK][WIDTH_BLOCK]) {
 
     save("../assets/save/board.txt", board_string);
 
-    char query[100];
+    char query[600];
     sprintf(query, "UPDATE PLAYERS SET game = '%s' WHERE userId = %d", board_string, user_id);
     if (mysql_query(&mysql, query)) {
         printf("Error %u: %s\n", mysql_errno(&mysql), mysql_error(&mysql));
         exit(1);
     }
     mysql_close(&mysql);
-
 }
 
 
@@ -232,6 +233,4 @@ void get_board_query(int user_id, int other_player_board[NB_OTHER_PLAYER_TO_DISP
         if (index_nb_other_player == NB_OTHER_PLAYER_TO_DISPLAY)
             break;
     }
-
 }
-
