@@ -9,6 +9,8 @@
 #include "connection.h"
 #include "menu.h"
 #include <mysql/mysql.h>
+
+#include "array.h"
 #include "game-management.h"
 #include "tetris.h"
 
@@ -25,11 +27,13 @@ int main(int argc, char *argv[]) {
     bool in_stat = false;
 
     struct piece piece;
+    List *chain_list = init_array();
     int next_piece = (int) (rand() % 7) + 1;;
     int nb_little_bad_block = 0;
     int nb_line_bad_block = 0;
     int nb_little_bad_block_opponent = 0;
     int limit_second = 0;
+    insert_element_array(chain_list, next_piece);
     int speed_gravity = (int) (rand() % 40) + 20;
     int board[HEIGHT_BLOCK][WIDTH_BLOCK];
     int other_player_board[NB_OTHER_PLAYER_TO_DISPLAY][HEIGHT_BLOCK][WIDTH_BLOCK];
