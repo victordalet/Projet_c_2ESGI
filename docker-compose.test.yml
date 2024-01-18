@@ -7,7 +7,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: project_c_password
-      MYSQL_USER: c_user
+      MYSQL_USER: root
       MYSQL_PASSWORD: project_c_password
       MYSQL_DATABASE: project_c
     ports:

@@ -122,6 +122,12 @@ build CMakeFiles/Projet_c_2ESGI.dir/src/linux_function.c.o: C_COMPILER__Projet_c
   OBJECT_DIR = CMakeFiles/Projet_c_2ESGI.dir
   OBJECT_FILE_DIR = CMakeFiles/Projet_c_2ESGI.dir/src
 
+build CMakeFiles/Projet_c_2ESGI.dir/src/array.c.o: C_COMPILER__Projet_c_2ESGI_unscanned_ /home/victor/Documents/esgi/Projet_c_2ESGI/src/array.c || cmake_object_order_depends_target_Projet_c_2ESGI
+  DEP_FILE = CMakeFiles/Projet_c_2ESGI.dir/src/array.c.o.d
+  FLAGS = -Wall -Werror -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/Projet_c_2ESGI.dir
+  OBJECT_FILE_DIR = CMakeFiles/Projet_c_2ESGI.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Projet_c_2ESGI
@@ -130,7 +136,7 @@ build CMakeFiles/Projet_c_2ESGI.dir/src/linux_function.c.o: C_COMPILER__Projet_c
 #############################################
 # Link the executable Projet_c_2ESGI
 
-build Projet_c_2ESGI: C_EXECUTABLE_LINKER__Projet_c_2ESGI_ CMakeFiles/Projet_c_2ESGI.dir/src/game.c.o CMakeFiles/Projet_c_2ESGI.dir/src/display.c.o CMakeFiles/Projet_c_2ESGI.dir/src/event.c.o CMakeFiles/Projet_c_2ESGI.dir/src/player.c.o CMakeFiles/Projet_c_2ESGI.dir/src/menu.c.o CMakeFiles/Projet_c_2ESGI.dir/src/connection.c.o CMakeFiles/Projet_c_2ESGI.dir/src/game-management.c.o CMakeFiles/Projet_c_2ESGI.dir/src/tetris.c.o CMakeFiles/Projet_c_2ESGI.dir/src/tetris_player_action.c.o CMakeFiles/Projet_c_2ESGI.dir/src/tetris_piece.c.o CMakeFiles/Projet_c_2ESGI.dir/src/tetris_front.c.o CMakeFiles/Projet_c_2ESGI.dir/src/save.c.o CMakeFiles/Projet_c_2ESGI.dir/src/linux_function.c.o
+build Projet_c_2ESGI: C_EXECUTABLE_LINKER__Projet_c_2ESGI_ CMakeFiles/Projet_c_2ESGI.dir/src/game.c.o CMakeFiles/Projet_c_2ESGI.dir/src/display.c.o CMakeFiles/Projet_c_2ESGI.dir/src/event.c.o CMakeFiles/Projet_c_2ESGI.dir/src/player.c.o CMakeFiles/Projet_c_2ESGI.dir/src/menu.c.o CMakeFiles/Projet_c_2ESGI.dir/src/connection.c.o CMakeFiles/Projet_c_2ESGI.dir/src/game-management.c.o CMakeFiles/Projet_c_2ESGI.dir/src/tetris.c.o CMakeFiles/Projet_c_2ESGI.dir/src/tetris_player_action.c.o CMakeFiles/Projet_c_2ESGI.dir/src/tetris_piece.c.o CMakeFiles/Projet_c_2ESGI.dir/src/tetris_front.c.o CMakeFiles/Projet_c_2ESGI.dir/src/save.c.o CMakeFiles/Projet_c_2ESGI.dir/src/linux_function.c.o CMakeFiles/Projet_c_2ESGI.dir/src/array.c.o
   FLAGS = -Wall -Werror
   LINK_LIBRARIES = -lSDL2  -lmysqlclient
   OBJECT_DIR = CMakeFiles/Projet_c_2ESGI.dir

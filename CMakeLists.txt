@@ -30,6 +30,8 @@ add_executable(Projet_c_2ESGI
         src/save.h
         src/linux_function.c
         src/linux_function.h
+        src/array.h
+        src/array.c
 )
 
 
