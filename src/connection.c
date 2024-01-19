@@ -7,7 +7,6 @@
 #include "linux_function.h"
 
 
-
 char *get_ip() {
     FILE *fptr = fopen("../assets/conf/.env", "r");
     char env[300];
@@ -213,8 +212,7 @@ void get_board_query(int user_id, int other_player_board[NB_OTHER_PLAYER_TO_DISP
     mysql_real_connect(&mysql, get_ip(), "root", "project_c_password", "project_c", 3007, NULL, 0);
 
     char query[100];
-    //sprintf(query, "SELECT game FROM PLAYERS  WHERE userId != %d AND in_game= 2", user_id);
-    sprintf(query, "SELECT game FROM PLAYERS  WHERE in_game= 2"); // TODO : remove this line
+    sprintf(query, "SELECT game FROM PLAYERS  WHERE in_game= 2 and game IS NOT NULL");
     if (mysql_query(&mysql, query)) {
         printf("Error %u: %s\n", mysql_errno(&mysql), mysql_error(&mysql));
         exit(1);

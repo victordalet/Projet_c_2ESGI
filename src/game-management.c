@@ -24,6 +24,7 @@ void loading_game(int user_id) {
         loading_game(user_id);
     }
     if (status_game == 1) {
+        enter_game_query(user_id);
         while (status_game != 2) {
             time_sleep(MAX_TIME_SLEEP_TO_RETRY_ENTER_SERVER);
             status_game = get_status_server();
@@ -34,7 +35,6 @@ void loading_game(int user_id) {
         printf("Game launch in %d seconds\n", MAX_TIME_TO_LAUNCH_SERVER);
         time_sleep(MAX_TIME_TO_LAUNCH_SERVER);
         launch_game_query();
-        printf("Game launch !\n");
     }
 }
 

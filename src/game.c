@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     int user_id;
     bool run = true;
     bool in_stat = false;
-
+    printf("salut2");
     struct piece piece;
     List *chain_list = init_array();
     int next_piece = (int) (rand() % 7) + 1;;
@@ -129,6 +129,7 @@ int main(int argc, char *argv[]) {
         if (!in_level && !in_stat)
             display_menu(renderer, &in_level, start_icon_texture, stat_texture);
         else if (in_level) {
+            printf("aled");
             are_you_lost(&in_level, user_id, board);
             game_manager(renderer, block_color, texture_piece, board, &nb_little_bad_block_opponent,
                          &nb_line_bad_block, &next_piece, &limit_second, &nb_little_bad_block, &piece, &speed_gravity,
